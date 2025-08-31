@@ -4,6 +4,55 @@
     <meta charset="UTF-8">
     <title>Commands - Ticket Logger</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Optional CSS for spacing and readability */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #2C2F33;
+            color: #FFFFFF;
+        }
+        header {
+            background: #7289DA;
+            padding: 20px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #23272A;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        li b {
+            display: block;
+            margin-bottom: 10px;
+            color: #7289DA;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1E1F22;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,16 +67,19 @@
     <div class="container">
         <h2>Commands</h2>
         <ul>
-            <li>!loggerchannel channelid / and that selects where do send the logged ticket
-
-</li>
-            <li>!loggerrole @pingyourrole / and this will select the role which will trigger the bot to log the ticket so if player dont have it it will not log the ticket </li>
-
+            <li>
+                <b>!loggerrole @pingyourrole</b>
+                and this will select the role which will trigger the bot to log the ticket so if player don't have it it will not log the ticket
+            </li>
+            <li>
+                <b>!loggerchannel channelid</b>
+                and that selects where to send the logged ticket
+            </li>
         </ul>
     </div>
 
     <footer>
-        &copy; 2025 Ticket Logger By kameelo . All rights reserved.
+        &copy; 2025 Ticket Logger By kameelo. All rights reserved.
     </footer>
 </body>
 </html>
