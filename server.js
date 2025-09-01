@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
@@ -6,21 +5,19 @@ const DiscordStrategy = require("passport-discord").Strategy;
 
 const app = express();
 
-// Replace with your values
-const CLIENT_ID = "1411025062680854588"; // Your bot Client ID
-const CLIENT_SECRET = "r5WKWVJYnOFIzNzo3zw9H7PRGUbbJkTi"; // ⚠️
-const CALLBACK_URL = "http://localhost:3000/callback"; // Must match what you set in Developer Portal
+// Replace with your info
+const CLIENT_ID = "1411025062680854588"; // your bot Client ID
+const CLIENT_SECRET = "r5WKWVJYnOFIzNzo3zw9H7PRGUbbJkTi"; // your new Client Secret
+const CALLBACK_URL = "http://localhost:3000/callback"; // must match Discord OAuth2
 
-// Session middleware
 app.use(
   session({
-    secret: "super-secret-key", // change this
+    secret: "super-secret-key",
     resave: false,
     saveUninitialized: false,
   })
 );
 
-// Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -35,25 +32,20 @@ passport.use(
       callbackURL: CALLBACK_URL,
       scope: ["identify", "guilds"],
     },
-    (accessToken, refreshToken, profile, done) => {
-      return done(null, profile);
-    }
+    (accessToken, refreshToken, profile, done) => done(null, profile)
   )
 );
 
-// Routes
-app.get("/", (req, res) => {
-  res.send('<a href="/login">Login with Discord</a>');
-});
+app.get("/", (req, res) =>
+  res.send('<a href="/login">Login with Discord</a>')
+);
 
 app.get("/login", passport.authenticate("discord"));
 
 app.get(
   "/callback",
   passport.authenticate("discord", { failureRedirect: "/" }),
-  (req, res) => {
-    res.redirect("/dashboard");
-  }
+  (req, res) => res.redirect("/dashboard")
 );
 
 app.get("/dashboard", (req, res) => {
@@ -66,12 +58,9 @@ app.get("/dashboard", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  req.logout(() => {
-    res.redirect("/");
-  });
+  req.logout(() => res.redirect("/"));
 });
 
-// Start server
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+app.listen(3000, () =>
+  console.log("Server running at http://localhost:3000")
+);
