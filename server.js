@@ -1,3 +1,4 @@
+// server.js
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
@@ -5,44 +6,72 @@ const DiscordStrategy = require("passport-discord").Strategy;
 
 const app = express();
 
-app.use(session({
-    secret: "super-secret",
-    resave: false,
-    saveUninitialized: false
-}));
+// Replace with your values
+const CLIENT_ID = "1411025062680854588"; // Your bot Client ID
+const CLIENT_SECRET = "r5WKWVJYnOFIzNzo3zw9H7PRGUbbJkTi"; // ⚠️
+const CALLBACK_URL = "http://localhost:3000/callback"; // Must match what you set in Developer Portal
 
+// Session middleware
+app.use(
+  session({
+    secret: "super-secret-key", // change this
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
 
-passport.use(new DiscordStrategy({
-    clientID: "1411025062680854588",
-    clientSecret: "r5WKWVJYnOFIzNzo3zw9H7PRGUbbJkTi",
-    callbackURL: "http://localhost:3000/callback",
-    scope: ["identify", "guilds"]
-}, (accessToken, refreshToken, profile, done) => {
-    return done(null, profile);
-}));
+passport.use(
+  new DiscordStrategy(
+    {
+      clientID: CLIENT_ID,
+      clientSecret: CLIENT_SECRET,
+      callbackURL: CALLBACK_URL,
+      scope: ["identify", "guilds"],
+    },
+    (accessToken, refreshToken, profile, done) => {
+      return done(null, profile);
+    }
+  )
+);
 
-// Login route
+// Routes
+app.get("/", (req, res) => {
+  res.send('<a href="/login">Login with Discord</a>');
+});
+
 app.get("/login", passport.authenticate("discord"));
 
-// Callback
-app.get("/callback", passport.authenticate("discord", { failureRedirect: "/" }), (req, res) => {
-    res.redirect("/public/dashboard.html");
+app.get(
+  "/callback",
+  passport.authenticate("discord", { failureRedirect: "/" }),
+  (req, res) => {
+    res.redirect("/dashboard");
+  }
+);
+
+app.get("/dashboard", (req, res) => {
+  if (!req.user) return res.redirect("/");
+  res.send(`
+    <h1>Hello, ${req.user.username}#${req.user.discriminator}</h1>
+    <p>You are in ${req.user.guilds.length} servers.</p>
+    <a href="/logout">Logout</a>
+  `);
 });
 
-// API to get servers
-app.get("/api/servers", (req, res) => {
-    if (!req.user) return res.status(401).json({ error: "Not logged in" });
-
-    const userGuilds = req.user.guilds || [];
-    res.json(userGuilds.map(g => ({ id: g.id, name: g.name })));
+app.get("/logout", (req, res) => {
+  req.logout(() => {
+    res.redirect("/");
+  });
 });
 
-// Serve static frontend
-app.use("/public", express.static("public"));
-
-app.listen(3000, () => console.log("Dashboard running on http://localhost:3000"));
+// Start server
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
