@@ -1,143 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Ticket Logger</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #2C2F33;
-            color: #FFFFFF;
-        }
-
-        header {
-            background: #7289DA;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2em;
-        }
-
-        nav {
-            margin-top: 10px;
-        }
-
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #7289DA, #99AAB5);
-        }
-
-        .hero h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 16px 32px;
-            background: #23272A;
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            font-size: 1.1em;
-            transition: 0.3s;
-        }
-
-        .button:hover {
-            background: #1e1f22;
-        }
-
-        /* Features Section */
-        .features {
-            max-width: 1000px;
-            margin: 50px auto;
-            padding: 0 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .feature-card {
-            background: #23272A;
-            padding: 20px;
-            border-radius: 12px;
-            flex: 1 1 300px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .feature-card h3 {
-            color: #7289DA;
-            margin-top: 0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #1E1F22;
-            margin-top: 50px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Ticket Logger</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>🤖 Ticket Logger</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="features.html">Features</a>
-            <a href="commands.html">Commands</a>
-        </nav>
-    </header>
+  <header>
+    <h1>🤖 Ticket Logger</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="commands.html">Commands</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
 
-    <section class="hero">
-        <h2>Welcome to Ticket Logger Bot!</h2>
-        <p>Make moderation easy and track tickets efficiently with your Discord server.</p>
-        <a class="button" href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&integration_type=0&scope=bot" target="_blank">Invite Bot</a>
-    </section>
+  <div class="container">
+    <h2>Welcome to Ticket Logger!</h2>
+    <p>
+      Ticket Logger makes moderation easier by keeping track of tickets in one place.  
+      Use the dashboard to view and manage your servers.
+    </p>
 
-    <section class="features">
-        <div class="feature-card">
-            <h3>Easy Ticket Logging</h3>
-            <p>Automatically track all tickets in your server with minimal setup.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Staff Tracking</h3>
-            <p>Know which staff members are active and efficiently handling tickets.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Custom Roles & Channels</h3>
-            <p>Assign roles and channels to manage logging permissions easily.</p>
-        </div>
-    </section>
+    <!-- Invite Bot Button -->
+    <a class="button" href="https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot" target="_blank">
+      Invite Bot
+    </a>
 
-    <footer>
-        &copy; 2025 Ticket Logger By kameelo. All rights reserved.
-    </footer>
+    <!-- Login with Discord Button -->
+    <a class="button" href="http://localhost:3000/login">
+      Login with Discord
+    </a>
+  </div>
+
+  <footer>
+    &copy; 2025 Ticket Logger by kameelo. All rights reserved.
+  </footer>
 </body>
 </html>
