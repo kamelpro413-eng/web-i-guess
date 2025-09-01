@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Ticket Logger</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🤖 Ticket Logger Dashboard</h1>
+  </header>
+
+  <div class="container">
+    <h2>Your Servers</h2>
+    <div id="servers">Loading...</div>
+  </div>
+
+  <script>
+    fetch("/api/servers", { credentials: "include" })
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("servers");
+        container.innerHTML = "";
+        data.forEach(server => {
+          const div = document.createElement("div");
+          div.className = "server";
+          div.innerHTML = `<h3>${server.name}</h3>`;
+          container.appendChild(div);
+        });
+      });
+  </script>
+</body>
+</html>
