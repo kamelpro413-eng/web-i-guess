@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon-32x32.png">
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ticket Logger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Logger</title>
+  <link rel="icon" type="image/png" href="favicon-32x32.png">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- AOS Animations -->
+  <!-- AOS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
@@ -23,10 +22,9 @@
 
   <!-- Header -->
   <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-6 py-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 sm:px-6 py-6">
       <h1 class="text-3xl font-bold text-blue-400 mb-4 md:mb-0">🤖 Ticket Logger</h1>
-      <!-- Nav buttons -->
-      <nav class="flex gap-4">
+      <nav class="flex flex-col sm:flex-row gap-4">
         <a href="index.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Home</a>
         <a href="features.html" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Features</a>
         <a href="commands.html" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Commands</a>
@@ -36,35 +34,76 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 max-w-4xl mx-auto px-6 py-16 text-center" data-aos="fade-up">
-    <h2 class="text-4xl font-bold mb-8">Welcome to Ticket Logger!</h2>
-    <p class="mb-12 text-lg">
-      Ticket Logger makes moderation easier by keeping track of tickets in one place.  
-      Use the dashboard to view and manage your servers.
-    </p>
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-16">
 
-    <!-- Invite Bot & Login Buttons -->
-    <div class="flex flex-wrap gap-4 justify-center">
+    <!-- Hero Section -->
+    <section class="text-center mb-16" data-aos="fade-up">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">Welcome to Ticket Logger!</h2>
+      <p class="text-lg sm:text-xl mb-8">
+        Ticket Logger makes moderation easier by keeping track of tickets in one place.  
+        Monitor your servers, track staff activity, and never miss a request again.
+      </p>
+
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank"
+           class="bg-yellow-500 hover:bg-yellow-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
+           Invite Bot
+        </a>
+        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+guilds"
+           class="bg-pink-500 hover:bg-pink-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
+           Login with Discord
+        </a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="mb-16" data-aos="fade-up" data-aos-delay="100">
+      <h3 class="text-3xl font-bold mb-6 text-center">Why Choose Ticket Logger?</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+          <h4 class="text-xl font-semibold text-blue-400 mb-2">Logging Tickets</h4>
+          <p>Keep track of all tickets automatically so no request is missed.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+          <h4 class="text-xl font-semibold text-blue-400 mb-2">Staff Tracking</h4>
+          <p>Monitor staff activity and performance efficiently.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+          <h4 class="text-xl font-semibold text-blue-400 mb-2">Easy Dashboard</h4>
+          <p>View and manage all servers in one clean interface.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section class="mb-16" data-aos="fade-up" data-aos-delay="200">
+      <h3 class="text-3xl font-bold mb-6 text-center">How It Works</h3>
+      <ol class="list-decimal list-inside space-y-4 text-lg">
+        <li>Add Ticket Logger to your Discord server.</li>
+        <li>Configure the logging role and channel with commands.</li>
+        <li>Start tracking tickets automatically with your dashboard.</li>
+      </ol>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center" data-aos="fade-up" data-aos-delay="300">
+      <p class="text-lg mb-6">Ready to improve your server management?</p>
       <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank"
          class="bg-yellow-500 hover:bg-yellow-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
-         Invite Bot
+         Invite Bot Now
       </a>
+    </section>
 
-      <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+guilds"
-         class="bg-pink-500 hover:bg-pink-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
-         Login with Discord
-      </a>
-    </div>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto">
+  <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto px-4 sm:px-6">
     <a href="terms.html" class="hover:text-white">Terms of Service</a> | 
     <a href="privacy.html" class="hover:text-white">Privacy Policy</a>
     <p>&copy; 2025 Ticket Logger by kameelo. All rights reserved.</p>
   </footer>
 
-  <!-- Active Page Highlight -->
+  <!-- Active page highlight -->
   <script>
     const links = document.querySelectorAll('nav a');
     const current = window.location.pathname.split("/").pop();
@@ -79,5 +118,3 @@
 
 </body>
 </html>
-
-
