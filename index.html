@@ -3,45 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <title>Ticket Logger</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS Animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({
+        duration: 800,
+        once: true
+      });
+    });
+  </script>
 </head>
-<body>
-  <header>
-    <h1>🤖 Ticket Logger</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="features.html">Features</a>
-      <a href="commands.html">Commands</a>
-      <a href="dashboard.html">Dashboard</a>
-    </nav>
+<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+      <h1 class="text-2xl font-bold text-blue-400">🤖 Ticket Logger</h1>
+      <nav class="flex gap-6">
+        <a href="index.html" class="hover:text-blue-400 transition">Home</a>
+        <a href="features.html" class="hover:text-blue-400 transition">Features</a>
+        <a href="commands.html" class="hover:text-blue-400 transition">Commands</a>
+        <a href="dashboard.html" class="hover:text-blue-400 transition">Dashboard</a>
+      </nav>
+    </div>
   </header>
 
-  <div class="container">
-    <h2>Welcome to Ticket Logger!</h2>
-    <p>
+  <!-- Hero -->
+  <main class="flex-1 flex flex-col justify-center items-center text-center px-6 py-16">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-6" data-aos="fade-up">
+      Welcome to <span class="text-blue-400">Ticket Logger!</span>
+    </h2>
+    <p class="text-gray-300 max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="200">
       Ticket Logger makes moderation easier by keeping track of tickets in one place.  
       Use the dashboard to view and manage your servers.
     </p>
 
-    <!-- Invite Bot Button -->
-    <a class="button" href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank">
-      Invite Bot
-    </a>
+    <div class="flex gap-4" data-aos="zoom-in" data-aos-delay="400">
+      <!-- Invite Bot Button -->
+      <a class="px-6 py-3 bg-blue-600 rounded-full font-semibold hover:scale-105 transition"
+         href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" 
+         target="_blank">
+        Invite Bot
+      </a>
 
-    <!-- Login with Discord Button -->
-    <a class="button" href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+guilds">
-      Login with Discord
-    </a>
-  </div>
+      <!-- Login with Discord Button -->
+      <a class="px-6 py-3 bg-green-600 rounded-full font-semibold hover:scale-105 transition"
+         href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+guilds">
+        Login with Discord
+      </a>
+    </div>
+  </main>
 
-  <footer>
-
-  <a href="terms.html">Terms of Service</a> | 
-  <a href="privacy.html">Privacy Policy</a>
-    &copy; 2025 Ticket Logger by kameelo. All rights reserved.
+  <!-- Footer -->
+  <footer class="bg-gray-800 py-6 text-center text-gray-400 text-sm">
+    <p class="mb-2">
+      <a href="terms.html" class="hover:text-blue-400">Terms of Service</a> | 
+      <a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a>
+    </p>
+    <p>&copy; 2025 Ticket Logger by kameelo. All rights reserved.</p>
   </footer>
 </body>
 </html>
-
-
-
