@@ -29,35 +29,28 @@
         <a href="features.html" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Features</a>
         <a href="commands.html" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Commands</a>
         <a href="dashboard.html" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Dashboard</a>
+        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank"
+           class="bg-yellow-500 hover:bg-yellow-400 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">
+           Invite Bot
+        </a>
       </nav>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-16">
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <!-- Hero Section -->
-    <section class="text-center mb-16" data-aos="fade-up">
+    <section class="text-center" data-aos="fade-up">
       <h2 class="text-4xl sm:text-5xl font-bold mb-4">Welcome to Ticket Logger!</h2>
       <p class="text-lg sm:text-xl mb-8">
         Ticket Logger makes moderation easier by keeping track of tickets in one place.  
         Monitor your servers, track staff activity, and never miss a request again.
       </p>
-
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank"
-           class="bg-yellow-500 hover:bg-yellow-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
-           Invite Bot
-        </a>
-        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+guilds"
-           class="bg-pink-500 hover:bg-pink-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
-           Login with Discord
-        </a>
-      </div>
     </section>
 
     <!-- Features Section -->
-    <section class="mb-16" data-aos="fade-up" data-aos-delay="100">
+    <section data-aos="fade-up" data-aos-delay="100">
       <h3 class="text-3xl font-bold mb-6 text-center">Why Choose Ticket Logger?</h3>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
@@ -75,19 +68,36 @@
       </div>
     </section>
 
-    <!-- How it Works Section -->
-    <section class="mb-16" data-aos="fade-up" data-aos-delay="200">
-      <h3 class="text-3xl font-bold mb-6 text-center">How It Works</h3>
-      <ol class="list-decimal list-inside space-y-4 text-lg">
-        <li>Add Ticket Logger to your Discord server.</li>
-        <li>Configure the logging role and channel with commands.</li>
-        <li>Start tracking tickets automatically with your dashboard.</li>
-      </ol>
+    <!-- How To Use Section -->
+    <section data-aos="fade-up" data-aos-delay="200">
+      <h3 class="text-3xl font-bold mb-6 text-center">How To Use Ticket Logger</h3>
+      <div class="space-y-6 max-w-3xl mx-auto text-lg">
+        <p>
+          <strong>1. Set the Logging Channel:</strong>  
+          To log tickets into a specific channel, type:  
+          <code class="bg-gray-700 px-2 py-1 rounded">!loggerchannel IDCHANNEL</code>  
+          Replace <em>IDCHANNEL</em> with the channel ID where you want tickets to appear.
+        </p>
+        <p>
+          <strong>2. Set the Role that Triggers the Bot:</strong>  
+          Only users with a specific role can trigger ticket logging.  
+          Type: <code class="bg-gray-700 px-2 py-1 rounded">!loggerrole @pingtherole</code>  
+          Replace <em>@pingtherole</em> with the role you want to grant logging permissions.
+        </p>
+        <p>
+          <strong>3. Start Managing Tickets:</strong>  
+          Once configured, the bot will automatically log tickets and track staff activity in your dashboard.
+        </p>
+      </div>
     </section>
 
-    <!-- Call to Action -->
+    <!-- Call to Action Section -->
     <section class="text-center" data-aos="fade-up" data-aos-delay="300">
-      <p class="text-lg mb-6">Ready to improve your server management?</p>
+      <h3 class="text-3xl font-bold mb-4">Why Choose This Bot?</h3>
+      <p class="text-lg mb-6">
+        Ticket Logger is easy to use, fully customizable, and designed to make server moderation effortless.  
+        Track tickets, monitor staff, and keep your server organized without any hassle.
+      </p>
       <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank"
          class="bg-yellow-500 hover:bg-yellow-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
          Invite Bot Now
