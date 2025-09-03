@@ -2,16 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Service</title>
+  <title>Terms of Service - Ticket Logger</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({ duration: 800, once: true });
+    });
+  </script>
 </head>
-<body>
-  <h1>Terms of Service</h1>
-  <p>Welcome to our service! By using this website or our Discord bot, you agree to the following terms:</p>
-  <ul>
-    <li>You must follow Discord’s Terms of Service and Community Guidelines.</li>
-    <li>You may not use the bot or website for illegal or harmful purposes.</li>
-    <li>We may update these terms at any time, and continued use means you accept the changes.</li>
-  </ul>
+<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+
+  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <h1 class="text-2xl font-bold text-blue-400">Terms of Service</h1>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl mx-auto px-6 py-16">
+    <p class="mb-6" data-aos="fade-up">Welcome to our service! By using this website or our Discord bot, you agree to the following terms:</p>
+    <ul class="list-disc list-inside space-y-3" data-aos="fade-up" data-aos-delay="100">
+      <li>You must follow Discord’s Terms of Service and Community Guidelines.</li>
+      <li>You may not use the bot or website for illegal or harmful purposes.</li>
+      <li>We may update these terms at any time, and continued use means you accept the changes.</li>
+    </ul>
+  </main>
+
+  <footer class="bg-gray-800 py-6 text-center text-gray-400">
+    &copy; 2025 Ticket Logger by kameelo. All rights reserved.
+  </footer>
 </body>
 </html>
