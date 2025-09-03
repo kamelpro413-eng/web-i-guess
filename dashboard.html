@@ -3,17 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard - Ticket Logger</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({ duration: 800, once: true });
+    });
+  </script>
 </head>
-<body>
-  <header>
-    <h1>🤖 Ticket Logger Dashboard</h1>
+<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <h1 class="text-2xl font-bold text-blue-400">🤖 Ticket Logger Dashboard</h1>
+    </div>
   </header>
 
-  <div class="container">
-    <h2>Your Servers</h2>
-    <div id="servers">Loading...</div>
-  </div>
+  <main class="flex-1 max-w-4xl mx-auto px-6 py-16">
+    <h2 class="text-4xl font-bold mb-8 text-center" data-aos="fade-up">Your Servers</h2>
+    <div id="servers" class="space-y-4" data-aos="fade-up" data-aos-delay="100">Loading...</div>
+  </main>
 
   <script>
     fetch("/api/servers", { credentials: "include" })
@@ -23,11 +37,15 @@
         container.innerHTML = "";
         data.forEach(server => {
           const div = document.createElement("div");
-          div.className = "server";
-          div.innerHTML = `<h3>${server.name}</h3>`;
+          div.className = "bg-gray-800 p-4 rounded-xl shadow-lg";
+          div.innerHTML = `<h3 class="text-lg font-semibold text-blue-400">${server.name}</h3>`;
           container.appendChild(div);
         });
       });
   </script>
+
+  <footer class="bg-gray-800 py-6 text-center text-gray-400">
+    &copy; 2025 Ticket Logger by kameelo. All rights reserved.
+  </footer>
 </body>
 </html>
