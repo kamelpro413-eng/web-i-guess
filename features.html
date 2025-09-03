@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon-32x32.png">
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Features - Ticket Logger</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Ticket Logger</title>
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => { AOS.init({ duration: 800, once: true }); });
-  </script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        AOS.init({ duration: 800, once: true });
+      });
+    </script>
 </head>
 <body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
 
+  <!-- Header -->
   <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex flex-col items-center px-6 py-6">
-      <h1 class="text-3xl font-bold text-blue-400 mb-4">🤖 Ticket Logger</h1>
-      <nav class="flex gap-4">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 sm:px-6 py-6">
+      <h1 class="text-3xl font-bold text-blue-400 mb-4 md:mb-0">🤖 Ticket Logger</h1>
+      <nav class="flex flex-col sm:flex-row gap-4">
         <a href="index.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Home</a>
         <a href="features.html" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Features</a>
         <a href="commands.html" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Commands</a>
@@ -28,26 +33,42 @@
     </div>
   </header>
 
-  <div class="container max-w-4xl mx-auto px-6 py-16" data-aos="fade-up">
-    <h2 class="text-4xl font-bold mb-8 text-center">Bot Features</h2>
-    <ul class="space-y-6">
-      <li class="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <b class="text-blue-400">Logging Tickets</b>
-        Makes it easy to keep track of all tickets and see which staff is handling them.
-      </li>
-      <li class="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <b class="text-blue-400">Staff Tracking</b>
-        Helps you know which staff members are the most active and efficient.
-      </li>
-    </ul>
-  </div>
+  <!-- Main Content -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
-  <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto">
+    <!-- Features Section -->
+    <section data-aos="fade-up" data-aos-delay="100">
+      <h2 class="text-4xl font-bold mb-8 text-center">Bot Features</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl font-semibold text-blue-400 mb-2">Logging Tickets</h3>
+          <p>Keep track of all tickets automatically so no request is missed.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl font-semibold text-blue-400 mb-2">Staff Tracking</h3>
+          <p>Monitor staff activity and performance efficiently.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl font-semibold text-blue-400 mb-2">Easy Dashboard</h3>
+          <p>View and manage all servers in one clean interface.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl font-semibold text-blue-400 mb-2">Wide Compatibility</h3>
+          <p>Supports almost every ticket bot, making it easy to integrate or switch without losing data.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto px-4 sm:px-6">
     <a href="terms.html" class="hover:text-white">Terms of Service</a> | 
     <a href="privacy.html" class="hover:text-white">Privacy Policy</a>
     <p>&copy; 2025 Ticket Logger by kameelo. All rights reserved.</p>
   </footer>
 
+  <!-- Active page highlight -->
   <script>
     const links = document.querySelectorAll('nav a');
     const current = window.location.pathname.split("/").pop();
@@ -62,5 +83,3 @@
 
 </body>
 </html>
-
-
