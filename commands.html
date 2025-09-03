@@ -1,85 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Commands - Ticket Logger</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Optional CSS for spacing and readability */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #2C2F33;
-            color: #FFFFFF;
-        }
-        header {
-            background: #7289DA;
-            padding: 20px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background: #23272A;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        li b {
-            display: block;
-            margin-bottom: 10px;
-            color: #7289DA;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #1E1F22;
-            margin-top: 40px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Commands - Ticket Logger</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({ duration: 800, once: true });
+    });
+  </script>
 </head>
-<body>
-    <header>
-        <h1>🤖 Ticket Logger</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="features.html">Features</a>
-            <a href="commands.html">Commands</a>
-        </nav>
-    </header>
+<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
 
-    <div class="container">
-        <h2>Commands</h2>
-        <ul>
-            <li>
-                <b>!loggerrole @pingyourrole</b>
-                and this will select the role which will trigger the bot to log the ticket so if player don't have it it will not log the ticket
-            </li>
-            <li>
-                <b>!loggerchannel channelid</b>
-                and that selects where to send the logged ticket
-            </li>
-        </ul>
+  <!-- Header -->
+  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+      <h1 class="text-2xl font-bold text-blue-400">🤖 Ticket Logger</h1>
+      <nav class="flex gap-6">
+        <a href="index.html" class="hover:text-blue-400 transition">Home</a>
+        <a href="features.html" class="hover:text-blue-400 transition">Features</a>
+        <a href="commands.html" class="hover:text-blue-400 transition">Commands</a>
+      </nav>
     </div>
+  </header>
 
-    <footer>
-        &copy; 2025 Ticket Logger By kameelo. All rights reserved.
-    </footer>
+  <main class="flex-1 max-w-4xl mx-auto px-6 py-16">
+    <h2 class="text-4xl font-bold mb-8 text-center" data-aos="fade-up">Commands</h2>
+
+    <ul class="space-y-6">
+      <li class="bg-gray-800 p-6 rounded-xl shadow-lg" data-aos="fade-up">
+        <b class="text-blue-400 block mb-2 text-lg">!loggerrole @pingyourrole</b>
+        Selects the role which will trigger the bot to log the ticket. Players without this role cannot log tickets.
+      </li>
+      <li class="bg-gray-800 p-6 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="100">
+        <b class="text-blue-400 block mb-2 text-lg">!loggerchannel channelid</b>
+        Selects the channel where logged tickets will be sent.
+      </li>
+    </ul>
+  </main>
+
+  <footer class="bg-gray-800 py-6 text-center text-gray-400">
+    &copy; 2025 Ticket Logger by kameelo. All rights reserved.
+  </footer>
 </body>
 </html>
