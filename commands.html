@@ -49,6 +49,22 @@
   <footer class="bg-gray-800 py-6 text-center text-gray-400">
     &copy; 2025 Ticket Logger by kameelo. All rights reserved.
   </footer>
+<script>
+  // Highlight the active page in the navbar
+  const links = document.querySelectorAll('.nav-link');
+  const current = window.location.pathname.split("/").pop(); // get current file name
+
+  links.forEach(link => {
+    if (link.getAttribute('href') === current) {
+      link.classList.add('text-blue-400', 'font-bold', 'underline');
+    } else {
+      link.classList.add('hover:text-blue-400', 'transition');
+    }
+  });
+</script>
+
+  
 </body>
 </html>
+
 
