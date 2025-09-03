@@ -2,16 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy</title>
+  <title>Privacy Policy - Ticket Logger</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({ duration: 800, once: true });
+    });
+  </script>
 </head>
-<body>
-  <h1>Privacy Policy</h1>
-  <p>Your privacy is important to us. Here’s how we handle your data:</p>
-  <ul>
-    <li>We do not sell or share your personal data with third parties.</li>
-    <li>The bot may store minimal data (like user IDs or server IDs) only to function properly.</li>
-    <li>You can request deletion of any stored data by contacting us.</li>
-  </ul>
+<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+
+  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <h1 class="text-2xl font-bold text-blue-400">Privacy Policy</h1>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl mx-auto px-6 py-16">
+    <p class="mb-6" data-aos="fade-up">Your privacy is important to us. Here’s how we handle your data:</p>
+    <ul class="list-disc list-inside space-y-3" data-aos="fade-up" data-aos-delay="100">
+      <li>We do not sell or share your personal data with third parties.</li>
+      <li>The bot may store minimal data (like user IDs or server IDs) only to function properly.</li>
+      <li>You can request deletion of any stored data by contacting us.</li>
+    </ul>
+  </main>
+
+  <footer class="bg-gray-800 py-6 text-center text-gray-400">
+    &copy; 2025 Ticket Logger by kameelo. All rights reserved.
+  </footer>
 </body>
 </html>
