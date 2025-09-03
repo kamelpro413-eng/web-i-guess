@@ -42,18 +42,19 @@
 
   <!-- Fetch servers -->
   <script>
-    fetch("/api/servers", { credentials: "include" })
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("servers");
-        container.innerHTML = "";
-        data.forEach(server => {
-          const div = document.createElement("div");
-          div.className = "bg-gray-800 p-4 rounded-xl shadow-lg";
-          div.innerHTML = `<h3 class="text-lg font-semibold text-blue-400">${server.name}</h3>`;
-          container.appendChild(div);
-        });
-      });
+  fetch("/.netlify/functions/auth/servers", { credentials: "include" })
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("servers");
+    container.innerHTML = "";
+    data.forEach(server => {
+      const div = document.createElement("div");
+      div.className = "bg-gray-800 p-4 rounded-xl shadow-lg";
+      div.innerHTML = `<h3 class="text-lg font-semibold text-blue-400">${server.name}</h3>`;
+      container.appendChild(div);
+    });
+  });
+
   </script>
 
   <!-- Footer -->
@@ -78,5 +79,6 @@
 
 </body>
 </html>
+
 
 
