@@ -21,10 +21,9 @@
 
   <!-- Header -->
   <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex flex-col items-center px-6 py-6">
-      <h1 class="text-3xl font-bold text-blue-400 mb-4">🤖 Ticket Logger</h1>
-
-      <!-- Navigation Buttons in original nav place -->
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-6 py-6">
+      <h1 class="text-3xl font-bold text-blue-400 mb-4 md:mb-0">🤖 Ticket Logger</h1>
+      <!-- Nav buttons -->
       <nav class="flex gap-4">
         <a href="index.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Home</a>
         <a href="features.html" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Features</a>
@@ -35,13 +34,26 @@
   </header>
 
   <!-- Main Content -->
-  <div class="container max-w-4xl mx-auto px-6 py-16 text-center" data-aos="fade-up">
+  <main class="flex-1 max-w-4xl mx-auto px-6 py-16 text-center" data-aos="fade-up">
     <h2 class="text-4xl font-bold mb-8">Welcome to Ticket Logger!</h2>
-    <p class="mb-6 text-lg">
+    <p class="mb-12 text-lg">
       Ticket Logger makes moderation easier by keeping track of tickets in one place.  
       Use the dashboard to view and manage your servers.
     </p>
-  </div>
+
+    <!-- Invite Bot & Login Buttons -->
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank"
+         class="bg-yellow-500 hover:bg-yellow-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
+         Invite Bot
+      </a>
+
+      <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+guilds"
+         class="bg-pink-500 hover:bg-pink-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
+         Login with Discord
+      </a>
+    </div>
+  </main>
 
   <!-- Footer -->
   <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto">
@@ -50,7 +62,7 @@
     <p>&copy; 2025 Ticket Logger by kameelo. All rights reserved.</p>
   </footer>
 
-  <!-- Active Page Highlight Script -->
+  <!-- Active Page Highlight -->
   <script>
     const links = document.querySelectorAll('nav a');
     const current = window.location.pathname.split("/").pop();
