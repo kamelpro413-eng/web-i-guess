@@ -15,18 +15,16 @@
 <body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
 
   <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
-      <h1 class="text-2xl font-bold text-blue-400">🤖 Ticket Logger</h1>
+    <div class="max-w-6xl mx-auto flex flex-col items-center px-6 py-6">
+      <h1 class="text-3xl font-bold text-blue-400 mb-4">🤖 Ticket Logger</h1>
+      <nav class="flex gap-4">
+        <a href="index.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Home</a>
+        <a href="features.html" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Features</a>
+        <a href="commands.html" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Commands</a>
+        <a href="dashboard.html" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Dashboard</a>
+      </nav>
     </div>
   </header>
-
-  <!-- Navigation Buttons -->
-  <div class="flex flex-wrap gap-4 justify-center mb-12" data-aos="fade-down">
-    <a href="index.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">Home</a>
-    <a href="features.html" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">Features</a>
-    <a href="commands.html" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">Commands</a>
-    <a href="dashboard.html" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">Dashboard</a>
-  </div>
 
   <div class="container max-w-4xl mx-auto px-6 py-16" data-aos="fade-up">
     <h2 class="text-4xl font-bold mb-8 text-center">Bot Features</h2>
@@ -49,10 +47,10 @@
   </footer>
 
   <script>
-    const links = document.querySelectorAll('.flex a');
+    const links = document.querySelectorAll('nav a');
     const current = window.location.pathname.split("/").pop();
     links.forEach(link => {
-      if (link.getAttribute('href') === current) {
+      if(link.getAttribute('href') === current){
         link.classList.add('text-blue-400', 'font-bold', 'underline');
       } else {
         link.classList.add('hover:text-blue-400', 'transition');
