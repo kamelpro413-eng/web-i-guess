@@ -1,99 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Features - Ticket Logger</title>
-    <link rel="icon" type="image/png" href="favicon-32x32.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Features — Ticket Logger</title>
+<link rel="icon" type="image/png" href="favicon-32x32.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Feature detail rows */
+  .feat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .feat-row:last-of-type { border-bottom: none; }
+  .feat-row.flip { direction: rtl; }
+  .feat-row.flip > * { direction: ltr; }
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  .feat-visual {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .feat-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 0%, rgba(59,158,255,0.08), transparent 70%);
+    pointer-events: none;
+  }
 
-    <!-- AOS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        AOS.init({ duration: 800, once: true });
-      });
-    </script>
+  .log-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 0.6rem 0.9rem;
+    font-size: 0.82rem;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text2);
+    animation: slideInRow 0.5s ease forwards;
+    opacity: 0;
+  }
+  .log-row:nth-child(1) { animation-delay: 0.1s; }
+  .log-row:nth-child(2) { animation-delay: 0.3s; }
+  .log-row:nth-child(3) { animation-delay: 0.5s; }
+  .log-row:nth-child(4) { animation-delay: 0.7s; }
+
+  @keyframes slideInRow {
+    from { opacity:0; transform: translateX(-12px); }
+    to   { opacity:1; transform: translateX(0); }
+  }
+
+  .log-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .dot-green { background: #5cf0c0; }
+  .dot-blue  { background: #3b9eff; }
+  .dot-purple{ background: #a78bfa; }
+  .dot-yellow{ background: #f9a825; }
+
+  .staff-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .staff-name { font-size: 0.82rem; color: var(--text2); width: 80px; flex-shrink:0; font-family:'IBM Plex Mono',monospace; }
+  .bar-track { flex: 1; height: 8px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; animation: growBar 1s ease forwards; transform-origin: left; }
+  @keyframes growBar {
+    from { width: 0; }
+  }
+  .bar-count { font-size:0.78rem; color:var(--muted); width:28px; text-align:right; }
+
+  .feat-text { }
+  .feat-text .section-tag { margin-bottom: 0.5rem; }
+  .feat-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.9rem;
+    line-height: 1.15;
+  }
+  .feat-text p { color: var(--muted); font-size: 0.98rem; line-height: 1.8; margin-bottom: 1rem; }
+  .feat-text ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .feat-text ul li { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.9rem; color: var(--text2); }
+  .feat-text ul li::before { content: '→'; color: var(--accent); font-family:'IBM Plex Mono',monospace; flex-shrink:0; margin-top:1px; }
+
+  /* Compare table */
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .compare-table th {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    color: var(--muted);
+    border-bottom: 2px solid var(--border);
+    background: var(--surface);
+  }
+  .compare-table th:first-child { border-radius: var(--r-sm) 0 0 0; }
+  .compare-table th:last-child  { border-radius: 0 var(--r-sm) 0 0; }
+  .compare-table td {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:last-child td:first-child { border-radius: 0 0 0 var(--r-sm); }
+  .compare-table tr:last-child td:last-child  { border-radius: 0 0 var(--r-sm) 0; }
+  .compare-table td:first-child { color: var(--text); font-weight: 500; }
+  .check { color: var(--accent2); font-size: 1.1rem; }
+  .cross { color: var(--muted);   font-size: 1.1rem; }
+
+  @media (max-width: 768px) {
+    .feat-row { grid-template-columns: 1fr; direction: ltr; }
+    .feat-row.flip { direction: ltr; }
+  }
+</style>
 </head>
-<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+<body>
+<canvas id="particles-canvas"></canvas>
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
 
-  <!-- Header -->
-  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 sm:px-6 py-6">
-      <h1 class="text-3xl font-bold text-blue-400 mb-4 md:mb-0">🤖 Ticket Logger</h1>
-      <nav class="flex flex-col sm:flex-row gap-4">
-        <a href="index.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Home</a>
-        <a href="features.html" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Features</a>
-        <a href="commands.html" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Commands</a>
-        <a href="dashboard.html" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Dashboard</a>
-      </nav>
-    </div>
-  </header>
+<div class="wrap">
 
-  <!-- Main Content -->
-  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo"><span class="logo-icon">🤖</span>Ticket Logger</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="features.html" class="active">Features</a>
+      <a href="commands.html">Commands</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank" class="nav-cta">⚡ Invite Bot</a>
+    </nav>
+  </div>
+</header>
 
-    <!-- Features Section -->
-    <section data-aos="fade-up" data-aos-delay="100">
-      <h2 class="text-4xl font-bold mb-8 text-center">Bot Features</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h3 class="text-xl font-semibold text-blue-400 mb-2">Logging Tickets</h3>
-          <p>Keep track of all tickets automatically so no request is missed.</p>
-        </div>
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="badge reveal" style="display:inline-flex; margin-bottom:1.25rem;"><span class="badge-dot"></span> All Features</span>
+  <h1 class="reveal d1">Everything you need<br><span class="gradient-text">in one bot</span></h1>
+  <p class="reveal d2">Powerful, flexible, and incredibly easy to set up. Here's what makes Ticket Logger the best choice for your server.</p>
+</div>
 
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h3 class="text-xl font-semibold text-blue-400 mb-2">Staff Tracking</h3>
-          <p>Monitor staff activity and performance efficiently.</p>
-        </div>
+<main class="section-wrap" style="padding-top:3rem; flex:1;">
 
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h3 class="text-xl font-semibold text-blue-400 mb-2">Easy Dashboard</h3>
-          <p>View and manage all servers in one clean interface.</p>
-        </div>
-
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h3 class="text-xl font-semibold text-blue-400 mb-2">Wide Compatibility</h3>
-          <p>Supports almost every ticket bot, making it easy to integrate or switch without losing data.</p>
-        </div>
-
-        <!-- New Feature: Infinite Roles -->
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h3 class="text-xl font-semibold text-blue-400 mb-2">Unlimited Roles</h3>
-          <p>
-            Use <code class="bg-gray-700 px-2 py-1 rounded">!loggerrole</code> with as many roles as you want.  
-            There’s no limit — perfect for multiple staff teams like Support, Moderator, Helper, and more.
-          </p>
-        </div>
-
+  <!-- TOP FEATURE CARDS -->
+  <section>
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px,1fr));">
+      <div class="card reveal d1">
+        <div class="card-icon ci-blue">📝</div>
+        <h4>Auto Ticket Logging</h4>
+        <p>Every ticket is captured and saved automatically — no manual effort needed from your team.</p>
       </div>
-    </section>
+      <div class="card reveal d2">
+        <div class="card-icon ci-teal">👥</div>
+        <h4>Staff Activity Tracking</h4>
+        <p>Get full visibility into who is handling tickets, when, and how many — per staff member.</p>
+      </div>
+      <div class="card reveal d3">
+        <div class="card-icon ci-purple">🔧</div>
+        <h4>Fully Customizable</h4>
+        <p>Choose your own log channel and assign any roles to trigger the bot. Your server, your rules.</p>
+      </div>
+      <div class="card reveal d4">
+        <div class="card-icon ci-yellow">🔗</div>
+        <h4>Universal Bot Support</h4>
+        <p>Ticket Logger plays nicely with every major ticket bot — no need to change your existing setup.</p>
+      </div>
+      <div class="card reveal d5">
+        <div class="card-icon ci-red">♾️</div>
+        <h4>Unlimited Roles</h4>
+        <p>Assign logging to as many roles as you want. Support, mods, helpers — all covered at once.</p>
+      </div>
+      <div class="card reveal d6">
+        <div class="card-icon ci-pink">🆓</div>
+        <h4>Always Free</h4>
+        <p>No paywalls. No premium plans. Every feature is available to every server, forever.</p>
+      </div>
+    </div>
+  </section>
 
-  </main>
+  <!-- FEATURE DEEP DIVES -->
+  <section>
+    <p class="section-tag reveal">Feature Deep Dives</p>
+    <h2 class="section-title reveal d1">See it in action</h2>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto px-4 sm:px-6">
-    <a href="terms.html" class="hover:text-white">Terms of Service</a> | 
-    <a href="privacy.html" class="hover:text-white">Privacy Policy</a>
-    <p>&copy; 2025 Ticket Logger by kameelo. All rights reserved.</p>
-  </footer>
+    <!-- Row 1: Auto logging -->
+    <div class="feat-row reveal">
+      <div class="feat-text">
+        <span class="section-tag">Auto Logging</span>
+        <h3>Never miss<br>a ticket again</h3>
+        <p>As soon as a staff member with a configured role interacts with a ticket, Ticket Logger silently records it in your chosen channel. No commands needed after setup.</p>
+        <ul>
+          <li>Instant logging on ticket interaction</li>
+          <li>Channel-specific delivery</li>
+          <li>Works 24/7, even when you're offline</li>
+        </ul>
+      </div>
+      <div class="feat-visual">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--muted); margin-bottom:0.5rem;">📋 #ticket-logs</div>
+        <div class="log-row"><span class="log-dot dot-green"></span>Ticket #1042 closed by Moderator_Rex</div>
+        <div class="log-row"><span class="log-dot dot-blue"></span>Ticket #1043 opened — user: shadow_wolf</div>
+        <div class="log-row"><span class="log-dot dot-purple"></span>Ticket #1044 claimed by Support_Kay</div>
+        <div class="log-row"><span class="log-dot dot-yellow"></span>Ticket #1045 closed by Moderator_Rex</div>
+      </div>
+    </div>
 
-  <!-- Active page highlight -->
-  <script>
-    const links = document.querySelectorAll('nav a');
-    const current = window.location.pathname.split("/").pop();
-    links.forEach(link => {
-      if(link.getAttribute('href') === current){
-        link.classList.add('text-blue-400', 'font-bold', 'underline');
-      } else {
-        link.classList.add('hover:text-blue-400', 'transition');
-      }
-    });
-  </script>
+    <!-- Row 2: Staff tracking -->
+    <div class="feat-row flip reveal">
+      <div class="feat-text">
+        <span class="section-tag">Staff Tracking</span>
+        <h3>Full team<br>visibility</h3>
+        <p>Keep your moderation team accountable with automatic per-staff tracking. See exactly who handled which tickets without having to dig through logs manually.</p>
+        <ul>
+          <li>Per-member ticket counts</li>
+          <li>Activity over time</li>
+          <li>Compare performance across the team</li>
+        </ul>
+      </div>
+      <div class="feat-visual">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--muted); margin-bottom:0.75rem;">📊 Staff Activity This Week</div>
+        <div class="staff-bar">
+          <span class="staff-name">Rex</span>
+          <div class="bar-track"><div class="bar-fill" style="width:82%; background:linear-gradient(90deg,var(--accent),var(--accent2));"></div></div>
+          <span class="bar-count">41</span>
+        </div>
+        <div class="staff-bar">
+          <span class="staff-name">Kay</span>
+          <div class="bar-track"><div class="bar-fill" style="width:60%; background:linear-gradient(90deg,var(--accent3),var(--accent));"></div></div>
+          <span class="bar-count">30</span>
+        </div>
+        <div class="staff-bar">
+          <span class="staff-name">Zara</span>
+          <div class="bar-track"><div class="bar-fill" style="width:44%; background:linear-gradient(90deg,var(--accent4),var(--accent3));"></div></div>
+          <span class="bar-count">22</span>
+        </div>
+        <div class="staff-bar">
+          <span class="staff-name">Nova</span>
+          <div class="bar-track"><div class="bar-fill" style="width:28%; background:linear-gradient(90deg,#f66,var(--accent4));"></div></div>
+          <span class="bar-count">14</span>
+        </div>
+      </div>
+    </div>
 
+    <!-- Row 3: Compatibility -->
+    <div class="feat-row reveal">
+      <div class="feat-text">
+        <span class="section-tag">Compatibility</span>
+        <h3>Works with<br>everything</h3>
+        <p>Ticket Logger is designed to sit alongside your existing setup. Whether you're using a popular ticket bot or a custom solution, it just works.</p>
+        <ul>
+          <li>No bot conflicts or interference</li>
+          <li>Switch ticket bots without losing data</li>
+          <li>Supports multiple ticket bots at once</li>
+        </ul>
+      </div>
+      <div class="feat-visual" style="justify-content:center; align-items:center; gap:1rem; flex-direction:row; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="width:56px;height:56px;border-radius:14px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 0.4rem;">🎫</div>
+          <span style="font-size:0.72rem;color:var(--muted);">Ticket Tool</span>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:56px;height:56px;border-radius:14px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 0.4rem;">🤖</div>
+          <span style="font-size:0.72rem;color:var(--muted);">Custom Bot</span>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:56px;height:56px;border-radius:14px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 0.4rem;">📮</div>
+          <span style="font-size:0.72rem;color:var(--muted);">ModMail</span>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:56px;height:56px;border-radius:14px;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 0.4rem;box-shadow:0 0 14px var(--glow);">➕</div>
+          <span style="font-size:0.72rem;color:var(--accent);">+ Any Bot</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE TABLE -->
+  <section>
+    <p class="section-tag reveal">Comparison</p>
+    <h2 class="section-title reveal d1">Ticket Logger vs the rest</h2>
+    <p class="section-desc reveal d2">See why Ticket Logger stands out from other logging solutions.</p>
+    <div class="reveal d3" style="margin-top:2rem; overflow:auto; border-radius:var(--r-md); border:1px solid var(--border);">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Ticket Logger</th>
+            <th>Manual Logging</th>
+            <th>Other Bots</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Auto ticket capture</td><td><span class="check">✔</span></td><td><span class="cross">✘</span></td><td>Varies</td></tr>
+          <tr><td>Staff tracking</td><td><span class="check">✔</span></td><td><span class="cross">✘</span></td><td>Rarely</td></tr>
+          <tr><td>Unlimited roles</td><td><span class="check">✔</span></td><td>—</td><td>Often limited</td></tr>
+          <tr><td>Works with any ticket bot</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td><td><span class="cross">✘</span></td></tr>
+          <tr><td>2-command setup</td><td><span class="check">✔</span></td><td><span class="cross">✘</span></td><td><span class="cross">✘</span></td></tr>
+          <tr><td>Completely free</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td><td>Often paid</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="cta-banner reveal">
+      <h3>Start using Ticket Logger<br><span class="gradient-text">for free today</span></h3>
+      <p>No credit card. No account. Just invite and go.</p>
+      <div class="btn-group">
+        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank" class="btn btn-primary">⚡ Add to Discord</a>
+        <a href="commands.html" class="btn btn-secondary">📖 View Commands</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="commands.html">Commands</a>
+      <a href="dashboard.html">Dashboard</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a>
+    </div>
+    <p class="footer-copy">© 2025 Ticket Logger by kameelo. All rights reserved.</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){const c=document.getElementById('particles-canvas'),ctx=c.getContext('2d');let W,H,pts=[];function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}resize();window.addEventListener('resize',resize);for(let i=0;i<50;i++)pts.push({x:Math.random()*2000,y:Math.random()*1200,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,r:Math.random()*1.3+0.3,o:Math.random()*0.3+0.08});function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(59,158,255,${p.o})`;ctx.fill();});pts.forEach((a,i)=>{pts.slice(i+1).forEach(b=>{const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(59,158,255,${0.05*(1-d/110)})`;ctx.lineWidth=.5;ctx.stroke();}});});requestAnimationFrame(draw);}draw();})();
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-scale').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
