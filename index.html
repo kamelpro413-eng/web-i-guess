@@ -1,129 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ticket Logger</title>
-  <link rel="icon" type="image/png" href="favicon-32x32.png">
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- AOS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      AOS.init({ duration: 800, once: true });
-    });
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ticket Logger — Smart Discord Moderation</title>
+<link rel="icon" type="image/png" href="favicon-32x32.png">
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+<body>
+<canvas id="particles-canvas"></canvas>
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
 
-  <!-- Header -->
-  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 sm:px-6 py-4 md:py-6">
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-400 mb-4 md:mb-0">🤖 Ticket Logger</h1>
-      <nav class="flex flex-wrap justify-center gap-3 md:gap-4 w-full md:w-auto">
-        <a href="index.html" class="flex-auto sm:flex-none bg-gray-700 hover:bg-gray-600 text-white font-semibold px-3 sm:px-6 py-2 rounded-full transition transform hover:scale-105 text-center">Home</a>
-        <a href="features.html" class="flex-auto sm:flex-none bg-blue-600 hover:bg-blue-500 text-white font-semibold px-3 sm:px-6 py-2 rounded-full transition transform hover:scale-105 text-center">Features</a>
-        <a href="commands.html" class="flex-auto sm:flex-none bg-green-600 hover:bg-green-500 text-white font-semibold px-3 sm:px-6 py-2 rounded-full transition transform hover:scale-105 text-center">Commands</a>
-        <a href="dashboard.html" class="flex-auto sm:flex-none bg-purple-600 hover:bg-purple-500 text-white font-semibold px-3 sm:px-6 py-2 rounded-full transition transform hover:scale-105 text-center">Dashboard</a>
-      </nav>
+<div class="wrap">
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🤖</span>
+      Ticket Logger
+    </a>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="features.html">Features</a>
+      <a href="commands.html">Commands</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank" class="nav-cta">⚡ Invite Bot</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section style="padding: 6rem 1.5rem 2rem; text-align: center; position: relative;">
+  <div style="max-width: 860px; margin: 0 auto;">
+    <span class="badge reveal" style="margin-bottom: 1.75rem; display: inline-flex;"><span class="badge-dot"></span> Now live on Discord</span>
+    <h1 style="font-family:'Syne',sans-serif; font-size:clamp(2.8rem,7.5vw,5.8rem); font-weight:800; letter-spacing:-0.038em; line-height:1.04;" class="reveal d1">
+      Your server's<br><span class="gradient-text">moderation upgrade</span>
+    </h1>
+    <p style="margin-top:1.5rem; font-size:clamp(1rem,2vw,1.22rem); color:var(--muted); max-width:560px; margin-inline:auto; font-weight:300;" class="reveal d2">
+      Ticket Logger keeps every support ticket organized, tracks staff activity, and makes Discord moderation effortless — all in one bot.
+    </p>
+    <div class="btn-group reveal d3" style="margin-top:2.5rem;">
+      <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank" class="btn btn-primary">⚡ Invite Bot</a>
+      <a href="dashboard.html" class="btn btn-secondary">🔐 Login with Discord</a>
     </div>
-  </header>
 
-  <!-- Main Content -->
-  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
+    <!-- floating feature chips -->
+    <div class="reveal d4" style="margin-top:3rem; display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center;">
+      <span style="background:var(--surface); border:1px solid var(--border); padding:0.3rem 0.85rem; border-radius:100px; font-size:0.8rem; color:var(--text2);">✅ Free forever</span>
+      <span style="background:var(--surface); border:1px solid var(--border); padding:0.3rem 0.85rem; border-radius:100px; font-size:0.8rem; color:var(--text2);">🔗 Any ticket bot</span>
+      <span style="background:var(--surface); border:1px solid var(--border); padding:0.3rem 0.85rem; border-radius:100px; font-size:0.8rem; color:var(--text2);">⚙️ 2-command setup</span>
+      <span style="background:var(--surface); border:1px solid var(--border); padding:0.3rem 0.85rem; border-radius:100px; font-size:0.8rem; color:var(--text2);">👥 Unlimited roles</span>
+    </div>
+  </div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="text-center" data-aos="fade-up">
-      <h2 class="text-2xl sm:text-4xl md:text-5xl font-bold mb-4">Welcome to Ticket Logger!</h2>
-      <p class="text-base sm:text-lg md:text-xl mb-8">
-        Ticket Logger makes moderation easier by keeping track of tickets in one place.  
-        Monitor your servers, track staff activity, and never miss a request again.
-      </p>
-    </section>
+<!-- STATS BAR -->
+<div class="reveal" style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2rem 1.5rem; margin:1rem 0;">
+  <div style="max-width:1140px; margin:0 auto; display:flex; justify-content:center; gap:4rem; flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <span style="font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:700; color:var(--accent); display:block;">∞</span>
+      <span style="font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">Tickets Logged</span>
+    </div>
+    <div style="text-align:center;">
+      <span style="font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:700; color:var(--accent2); display:block;">100%</span>
+      <span style="font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">Free to Use</span>
+    </div>
+    <div style="text-align:center;">
+      <span style="font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:700; color:var(--accent3); display:block;">2</span>
+      <span style="font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">Commands to Set Up</span>
+    </div>
+    <div style="text-align:center;">
+      <span style="font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:700; color:var(--accent4); display:block;">Any</span>
+      <span style="font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">Ticket Bot Works</span>
+    </div>
+  </div>
+</div>
 
-    <!-- Why Choose This Bot Section -->
-    <section class="text-center" data-aos="fade-up" data-aos-delay="300">
-      <h3 class="text-2xl sm:text-3xl font-bold mb-4">Why Choose This Bot?</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-6">
-        <div class="bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg">
-          <h4 class="text-lg sm:text-xl font-semibold text-blue-400 mb-2">Easy to Use</h4>
-          <p>Ticket Logger is simple and intuitive, so you can start logging tickets immediately.</p>
+<!-- MAIN -->
+<main class="section-wrap" style="padding-top:5rem; flex:1;">
+
+  <!-- WHY CHOOSE -->
+  <section>
+    <p class="section-tag reveal">Why Ticket Logger</p>
+    <h2 class="section-title reveal d1">Built for real servers</h2>
+    <p class="section-desc reveal d2">Whether you run a small community or a massive support hub, Ticket Logger scales to fit perfectly.</p>
+
+    <div class="cards-grid">
+      <div class="card reveal d1">
+        <div class="card-icon ci-blue">⚡</div>
+        <h4>Dead Simple Setup</h4>
+        <p>Two commands and you're live. No complex config files or dashboards required — though a dashboard is available if you want it.</p>
+      </div>
+      <div class="card reveal d2">
+        <div class="card-icon ci-teal">🔗</div>
+        <h4>Universal Compatibility</h4>
+        <p>Works with virtually every ticket bot on the market. Switch systems without losing your history or missing a beat.</p>
+      </div>
+      <div class="card reveal d3">
+        <div class="card-icon ci-purple">📊</div>
+        <h4>Staff Activity Tracking</h4>
+        <p>Know exactly who handled what. Keep your moderation team accountable without constant micromanagement.</p>
+      </div>
+      <div class="card reveal d4">
+        <div class="card-icon ci-yellow">🛡️</div>
+        <h4>Role-Based Control</h4>
+        <p>Assign logging permissions to any number of roles — perfect for multi-team setups with Support, Mods, Helpers, and more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <p class="section-tag reveal">Getting Started</p>
+    <h2 class="section-title reveal d1">Up and running<br>in 3 steps</h2>
+    <p class="section-desc reveal d2">Configure Ticket Logger in under two minutes — no experience needed.</p>
+
+    <div style="display:flex; flex-direction:column; gap:0; max-width:680px; margin-top:2.5rem;">
+
+      <div class="reveal-left d1" style="display:flex; gap:1.5rem; align-items:flex-start; position:relative; padding-bottom:2.5rem;">
+        <div style="position:absolute; left:19px; top:48px; width:2px; height:calc(100% - 48px); background:linear-gradient(to bottom,var(--accent),transparent); opacity:0.2;"></div>
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface2);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--accent);flex-shrink:0;box-shadow:0 0 14px rgba(59,158,255,0.3);position:relative;z-index:1;">01</div>
+        <div style="padding-top:0.4rem;">
+          <h4 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">Set your logging channel</h4>
+          <p style="font-size:0.95rem;color:var(--muted);">Tell the bot where to send ticket logs. Replace <em>IDCHANNEL</em> with your channel's ID.</p>
+          <span class="code-chip" style="margin-top:0.65rem;">!loggerchannel IDCHANNEL</span>
         </div>
-        <div class="bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg">
-          <h4 class="text-lg sm:text-xl font-semibold text-blue-400 mb-2">Wide Compatibility</h4>
-          <p>Supports almost every ticket bot, making it easy to integrate or switch without losing data.</p>
+      </div>
+
+      <div class="reveal-left d2" style="display:flex; gap:1.5rem; align-items:flex-start; position:relative; padding-bottom:2.5rem;">
+        <div style="position:absolute; left:19px; top:48px; width:2px; height:calc(100% - 48px); background:linear-gradient(to bottom,var(--accent),transparent); opacity:0.2;"></div>
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface2);border:2px solid var(--accent2);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--accent2);flex-shrink:0;box-shadow:0 0 14px rgba(92,240,192,0.3);position:relative;z-index:1;">02</div>
+        <div style="padding-top:0.4rem;">
+          <h4 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">Assign your staff roles</h4>
+          <p style="font-size:0.95rem;color:var(--muted);">Pick which roles can trigger ticket logging. Add as many as you need — there is no limit.</p>
+          <span class="code-chip" style="margin-top:0.65rem;">!loggerrole @Role1 @Role2 ...</span>
         </div>
       </div>
-      <p class="text-base sm:text-lg mb-6">
-        Ticket Logger is easy to use, fully customizable, and designed to make server moderation effortless.  
-        Track tickets, monitor staff, and keep your server organized without any hassle.
-      </p>
 
-      <!-- Centered Buttons -->
-      <div class="flex justify-center gap-4 mt-4">
-        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank"
-           class="bg-yellow-500 hover:bg-yellow-400 text-white font-semibold px-6 py-2 rounded-full shadow-lg transition transform hover:scale-105 text-center">
-           Invite Bot
-        </a>
-        <a href="dashboard.html"
-           class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-full shadow-lg transition transform hover:scale-105 text-center">
-           Login with Discord
-        </a>
+      <div class="reveal-left d3" style="display:flex; gap:1.5rem; align-items:flex-start;">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface2);border:2px solid var(--accent3);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--accent3);flex-shrink:0;box-shadow:0 0 14px rgba(167,139,250,0.3);">03</div>
+        <div style="padding-top:0.4rem;">
+          <h4 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">You're live 🎉</h4>
+          <p style="font-size:0.95rem;color:var(--muted);">The bot automatically logs tickets and tracks staff activity from here on out. Zero maintenance needed.</p>
+        </div>
       </div>
-    </section>
 
-    <!-- How To Use Section -->
-    <section data-aos="fade-up" data-aos-delay="200">
-      <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-center">How To Use Ticket Logger</h3>
-      <div class="space-y-6 max-w-3xl mx-auto text-base sm:text-lg">
-        <p>
-          <strong>1. Set the Logging Channel:</strong>  
-          To log tickets into a specific channel, type:  
-          <code class="bg-gray-700 px-2 py-1 rounded">!loggerchannel IDCHANNEL</code>  
-          Replace <em>IDCHANNEL</em> with the channel ID where you want tickets to appear.
-        </p>
-        <p>
-          <p>
-  <strong>2. Set the Role(s) that Trigger the Bot:</strong><br>
-  Only users with certain roles can trigger ticket logging.  
-  Type: <code class="bg-gray-700 px-2 py-1 rounded">!loggerrole @Role1 @Role2 @Role3 ...</code><br>
-  Replace <em>@Role1 @Role2 @Role3 ...</em> with as many roles as you want.  
-  There’s no limit — you can add 1 role, or multiple roles for different staff teams.
-</p>
+    </div>
+  </section>
 
-        <p>
-          <strong>3. Start Managing Tickets:</strong>  
-          Once configured, the bot will automatically log tickets and track staff activity in your logging channel.
-        </p>
+  <!-- CTA -->
+  <section>
+    <div class="cta-banner reveal">
+      <h3>Ready to level up<br>your server?</h3>
+      <p>Join servers already using Ticket Logger — it's free, always.</p>
+      <div class="btn-group">
+        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank" class="btn btn-primary">⚡ Add to Discord</a>
+        <a href="commands.html" class="btn btn-secondary">📖 View Commands</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+</main>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto px-4 sm:px-6">
-    <a href="terms.html" class="hover:text-white">Terms of Service</a> | 
-    <a href="privacy.html" class="hover:text-white">Privacy Policy</a>
-    <p>&copy; 2025 Ticket Logger by kameelo. All rights reserved.</p>
-  </footer>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="commands.html">Commands</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+    <p class="footer-copy">© 2025 Ticket Logger by kameelo. All rights reserved.</p>
+  </div>
+</footer>
 
-  <!-- Active page highlight -->
-  <script>
-    const links = document.querySelectorAll('nav a');
-    const current = window.location.pathname.split("/").pop();
-    links.forEach(link => {
-      if(link.getAttribute('href') === current){
-        link.classList.add('text-blue-400', 'font-bold', 'underline');
-      } else {
-        link.classList.add('hover:text-blue-400', 'transition');
-      }
+</div><!-- /wrap -->
+
+<script>
+/* Particle Canvas */
+(function(){
+  const c = document.getElementById('particles-canvas');
+  const ctx = c.getContext('2d');
+  let W, H, pts = [];
+  function resize(){ W=c.width=innerWidth; H=c.height=innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  for(let i=0;i<70;i++) pts.push({x:Math.random()*2000,y:Math.random()*1200,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.5+0.4,o:Math.random()*0.4+0.1});
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(59,158,255,${p.o})`; ctx.fill();
     });
-  </script>
+    pts.forEach((a,i)=>{ pts.slice(i+1).forEach(b=>{
+      const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<120){ ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(59,158,255,${0.06*(1-d/120)})`; ctx.lineWidth=.5; ctx.stroke(); }
+    });});
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
+/* Nav active */
+(function(){
+  const cur = location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('nav a:not(.nav-cta)').forEach(a=>{ if(a.getAttribute('href')===cur) a.classList.add('active'); });
+})();
+
+/* Scroll reveal */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-scale').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
-
