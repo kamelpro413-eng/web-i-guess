@@ -1,46 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon-32x32.png">
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Service - Ticket Logger</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Ticket Logger</title>
+<link rel="icon" type="image/png" href="favicon-32x32.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .legal-wrap { max-width: 780px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      AOS.init({ duration: 800, once: true });
-    });
-  </script>
+  .legal-toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 3rem;
+  }
+  .legal-toc h4 { font-family:'Syne',sans-serif; font-size:0.85rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.9rem; }
+  .legal-toc ol { list-style:none; display:flex; flex-direction:column; gap:0.45rem; }
+  .legal-toc ol li a { color:var(--text2); text-decoration:none; font-size:0.9rem; display:flex; align-items:center; gap:0.5rem; transition:color 0.2s; }
+  .legal-toc ol li a:hover { color:var(--accent); }
+  .legal-toc ol li a::before { content:counter(list-item,decimal-leading-zero); counter-increment:list-item; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--muted); width:26px; flex-shrink:0; }
+  .legal-toc ol { counter-reset:list-item; }
+
+  .legal-section { margin-bottom:3rem; scroll-margin-top:90px; }
+  .legal-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    color: var(--text);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .legal-section p { color: var(--text2); font-size: 0.95rem; line-height: 1.85; margin-bottom: 0.75rem; }
+  .legal-section ul { list-style:none; display:flex; flex-direction:column; gap:0.55rem; margin-top:0.5rem; }
+  .legal-section ul li { display:flex; gap:0.6rem; color:var(--text2); font-size:0.93rem; line-height:1.7; }
+  .legal-section ul li::before { content:'→'; color:var(--accent); font-family:'IBM Plex Mono',monospace; flex-shrink:0; margin-top:2px; }
+
+  .legal-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    padding: 1rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+  }
+  .meta-item { font-size: 0.82rem; color: var(--muted); }
+  .meta-item strong { color: var(--text2); display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.15rem; }
+</style>
 </head>
-<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+<body>
+<canvas id="particles-canvas"></canvas>
+<div class="bg-grid"></div>
+<div class="orb orb-1" style="opacity:0.5;"></div>
 
-  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-  <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
-    <h1 class="text-2xl font-bold text-blue-400">🤖 Ticket Logger</h1>
-    <nav class="flex gap-6">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="features.html" class="nav-link">Features</a>
-      <a href="commands.html" class="nav-link">Commands</a>
-      <a href="dashboard.html" class="nav-link">Dashboard</a>
+<div class="wrap">
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo"><span class="logo-icon">🤖</span>Ticket Logger</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="commands.html">Commands</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank" class="nav-cta">⚡ Invite Bot</a>
     </nav>
   </div>
 </header>
 
+<div class="page-hero" style="padding-bottom:1rem;">
+  <h1 class="reveal d1" style="font-size:clamp(2rem,4vw,3rem);">Terms of <span class="gradient-text">Service</span></h1>
+  <p class="reveal d2">By using Ticket Logger, you agree to the following terms. Please read them carefully.</p>
+</div>
 
-  <main class="flex-1 max-w-4xl mx-auto px-6 py-16">
-    <p class="mb-6" data-aos="fade-up">Welcome to our service! By using this website or our Discord bot, you agree to the following terms:</p>
-    <ul class="list-disc list-inside space-y-3" data-aos="fade-up" data-aos-delay="100">
-      <li>You must follow Discord’s Terms of Service and Community Guidelines.</li>
-      <li>You may not use the bot or website for illegal or harmful purposes.</li>
-      <li>We may update these terms at any time, and continued use means you accept the changes.</li>
+<div class="legal-wrap">
+
+  <!-- Meta info -->
+  <div class="legal-meta reveal">
+    <div class="meta-item"><strong>Effective Date</strong>January 1, 2025</div>
+    <div class="meta-item"><strong>Last Updated</strong>January 1, 2025</div>
+    <div class="meta-item"><strong>Service</strong>Ticket Logger Discord Bot</div>
+  </div>
+
+  <!-- Table of contents -->
+  <div class="legal-toc reveal d1">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#use">Permitted Use</a></li>
+      <li><a href="#conduct">User Conduct</a></li>
+      <li><a href="#availability">Service Availability</a></li>
+      <li><a href="#changes">Changes to Terms</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </div>
+
+  <!-- Sections -->
+  <div class="legal-section reveal" id="acceptance">
+    <h2>01 — Acceptance of Terms</h2>
+    <p>By inviting Ticket Logger to your Discord server or using this website, you confirm that you have read, understood, and agree to be bound by these Terms of Service.</p>
+    <p>If you do not agree with any part of these terms, please do not use the service.</p>
+  </div>
+
+  <div class="legal-section reveal" id="use">
+    <h2>02 — Permitted Use</h2>
+    <p>Ticket Logger is provided as a free Discord bot for legitimate server moderation and ticket management purposes. You may:</p>
+    <ul>
+      <li>Invite and use the bot on any Discord server you have administrator permissions for.</li>
+      <li>Configure the bot using available commands for your server's needs.</li>
+      <li>Use the logged data for internal staff management and accountability.</li>
     </ul>
-  </main>
+  </div>
 
-  <footer class="bg-gray-800 py-6 text-center text-gray-400">
-    &copy; 2025 Ticket Logger by kameelo. All rights reserved.
-  </footer>
+  <div class="legal-section reveal" id="conduct">
+    <h2>03 — User Conduct</h2>
+    <p>When using Ticket Logger, you agree to the following:</p>
+    <ul>
+      <li>You must comply with <a href="https://discord.com/terms" target="_blank" style="color:var(--accent);">Discord's Terms of Service</a> and Community Guidelines at all times.</li>
+      <li>You may not use the bot or this website for illegal, abusive, or harmful purposes.</li>
+      <li>You may not attempt to exploit, reverse-engineer, or interfere with the bot's functionality.</li>
+      <li>You may not use the bot to harass, stalk, or harm other users.</li>
+    </ul>
+  </div>
+
+  <div class="legal-section reveal" id="availability">
+    <h2>04 — Service Availability</h2>
+    <p>Ticket Logger is provided "as is" without any guarantee of uptime or availability. We reserve the right to:</p>
+    <ul>
+      <li>Take the bot offline for maintenance at any time, with or without notice.</li>
+      <li>Discontinue the service entirely if required.</li>
+      <li>Remove the bot from servers that violate these terms.</li>
+    </ul>
+    <p>We are not liable for any loss of data or disruption caused by service downtime.</p>
+  </div>
+
+  <div class="legal-section reveal" id="changes">
+    <h2>05 — Changes to Terms</h2>
+    <p>We may update these Terms of Service at any time. When we do, we will update the "Last Updated" date at the top of this page.</p>
+    <p>Continued use of the bot or website after changes are made constitutes your acceptance of the updated terms.</p>
+  </div>
+
+  <div class="legal-section reveal" id="contact">
+    <h2>06 — Contact</h2>
+    <p>If you have questions about these terms, feel free to reach out via Discord. We're a small team and happy to help clarify anything.</p>
+  </div>
+
+  <div class="reveal" style="margin-top:2rem;">
+    <a href="privacy.html" class="btn btn-ghost" style="font-size:0.875rem;">📄 Also read our Privacy Policy →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="commands.html">Commands</a>
+      <a href="dashboard.html">Dashboard</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a>
+    </div>
+    <p class="footer-copy">© 2025 Ticket Logger by kameelo. All rights reserved.</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){const c=document.getElementById('particles-canvas'),ctx=c.getContext('2d');let W,H,pts=[];function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}resize();window.addEventListener('resize',resize);for(let i=0;i<30;i++)pts.push({x:Math.random()*2000,y:Math.random()*1200,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,r:Math.random()*1+0.3,o:Math.random()*0.18+0.05});function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(59,158,255,${p.o})`;ctx.fill();});requestAnimationFrame(draw);}draw();})();
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
