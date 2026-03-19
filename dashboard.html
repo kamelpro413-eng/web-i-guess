@@ -1,75 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon-32x32.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Ticket Logger</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Ticket Logger</title>
+<link rel="icon" type="image/png" href="favicon-32x32.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .dash-mockup {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    max-width: 860px;
+    margin: 0 auto;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,158,255,0.1);
+    position: relative;
+  }
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  /* browser chrome */
+  .mock-bar {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .dot-red   { width:11px;height:11px;border-radius:50%;background:#ff5f57; }
+  .dot-yel   { width:11px;height:11px;border-radius:50%;background:#ffbd2e; }
+  .dot-grn   { width:11px;height:11px;border-radius:50%;background:#28ca41; }
+  .mock-url  { flex:1; background:var(--surface3); border-radius:6px; padding:0.3rem 0.75rem; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--muted); margin:0 0.5rem; }
 
-    <!-- AOS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        AOS.init({ duration: 800, once: true });
-      });
-    </script>
+  /* mock sidebar */
+  .mock-body { display:grid; grid-template-columns:200px 1fr; min-height:360px; }
+  .mock-sidebar {
+    background: var(--surface2);
+    border-right: 1px solid var(--border);
+    padding: 1.25rem 0;
+  }
+  .mock-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    cursor: default;
+    transition: all 0.2s;
+  }
+  .mock-sidebar-item.active { color: var(--text); background: rgba(59,158,255,0.08); border-right: 2px solid var(--accent); }
+  .mock-sidebar-item span { font-size: 0.9rem; }
+
+  /* mock main */
+  .mock-main { padding: 1.5rem; }
+  .mock-section-title { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:700; margin-bottom:1rem; color:var(--text2); }
+
+  .mock-stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:0.75rem; margin-bottom:1.25rem; }
+  .mock-stat {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 0.85rem;
+  }
+  .mock-stat-val { font-family:'Syne',sans-serif; font-size:1.35rem; font-weight:700; }
+  .mock-stat-lbl { font-size:0.7rem; color:var(--muted); margin-top:0.2rem; }
+
+  .mock-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    margin-bottom: 0.5rem;
+    font-size: 0.78rem;
+    animation: fadeMockRow 0.4s ease forwards;
+    opacity: 0;
+  }
+  .mock-row:nth-child(1) { animation-delay:0.6s; }
+  .mock-row:nth-child(2) { animation-delay:0.8s; }
+  .mock-row:nth-child(3) { animation-delay:1.0s; }
+  @keyframes fadeMockRow { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+  .mock-avatar { width:24px;height:24px;border-radius:50%;flex-shrink:0;font-size:0.7rem;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff; }
+  .mock-name { flex:1; color:var(--text2); }
+  .mock-num { font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:0.75rem; }
+  .mock-badge { font-size:0.68rem; padding:0.15rem 0.5rem; border-radius:99px; }
+  .mb-open { background:rgba(92,240,192,0.12); color:var(--accent2); }
+  .mb-closed { background:rgba(99,179,255,0.1); color:var(--accent); }
+
+  /* blur overlay */
+  .mock-blur-overlay {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(6,10,20,0.55);
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    z-index: 10;
+  }
+
+  .coming-soon-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent4);
+    background: rgba(249,168,37,0.12);
+    border: 1px solid rgba(249,168,37,0.3);
+    padding: 0.4rem 1.1rem;
+    border-radius: 100px;
+    letter-spacing: 0.1em;
+  }
+
+  .lock-icon {
+    width: 64px; height: 64px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    box-shadow: 0 0 30px rgba(59,158,255,0.25);
+  }
+
+  .overlay-text { text-align:center; }
+  .overlay-text h3 { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; margin-bottom:0.5rem; }
+  .overlay-text p { color:var(--muted); font-size:0.9rem; }
+
+  /* progress steps */
+  .progress-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 340px;
+  }
+  .prog-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+  }
+  .prog-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+  .prog-done { background: rgba(92,240,192,0.15); color: var(--accent2); border: 1px solid rgba(92,240,192,0.3); }
+  .prog-wip  { background: rgba(249,168,37,0.12); color: var(--accent4); border: 1px solid rgba(249,168,37,0.3); }
+  .prog-todo { background: var(--surface3); color: var(--muted); border: 1px solid var(--border); }
+  .prog-label { color: var(--text2); }
+
+  @media(max-width:640px) {
+    .mock-body { grid-template-columns:1fr; }
+    .mock-sidebar { display:none; }
+    .mock-stat-row { grid-template-columns:1fr 1fr; }
+  }
+</style>
 </head>
-<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+<body>
+<canvas id="particles-canvas"></canvas>
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
 
-  <!-- Header with button-style nav -->
-  <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-6 py-6">
-      <h1 class="text-3xl font-bold text-blue-400 mb-4 md:mb-0">🤖 Ticket Logger</h1>
-      <nav class="flex gap-4">
-        <a href="index.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Home</a>
-        <a href="features.html" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Features</a>
-        <a href="commands.html" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Commands</a>
-        <a href="dashboard.html" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-2 rounded-full transition transform hover:scale-105">Dashboard</a>
-      </nav>
+<div class="wrap">
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo"><span class="logo-icon">🤖</span>Ticket Logger</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="commands.html">Commands</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank" class="nav-cta">⚡ Invite Bot</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <span class="badge reveal" style="display:inline-flex; margin-bottom:1.25rem; color:var(--accent4); background:rgba(249,168,37,0.1); border-color:rgba(249,168,37,0.25);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent4);animation:pulse 2s infinite;"></span> In Development</span>
+  <h1 class="reveal d1">Dashboard <span class="gradient-text">Coming Soon</span></h1>
+  <p class="reveal d2">We're building a beautiful web dashboard so you can manage your servers, view stats, and configure the bot — all in one place.</p>
+</div>
+
+<main class="section-wrap" style="flex:1; padding-bottom:5rem;">
+
+  <!-- Mockup -->
+  <div class="dash-mockup reveal d1">
+
+    <!-- Browser chrome -->
+    <div class="mock-bar">
+      <div class="dot-red"></div><div class="dot-yel"></div><div class="dot-grn"></div>
+      <div class="mock-url">ticketlogger.app/dashboard</div>
     </div>
-  </header>
 
-  <!-- Main Content -->
-  <main class="flex-1 max-w-4xl mx-auto px-6 py-16">
-    <h2 class="text-4xl font-bold mb-8 text-center" data-aos="fade-up">Your Servers</h2>
-
-    <!-- Static placeholder -->
-    <div id="servers" class="space-y-4" data-aos="fade-up" data-aos-delay="100">
-      <div class="bg-gray-800 p-4 rounded-xl shadow-lg">
-        <h3 class="text-lg font-semibold text-blue-400">dashboard is  not available right now</h3>
+    <!-- Dashboard body -->
+    <div class="mock-body">
+      <div class="mock-sidebar">
+        <div class="mock-sidebar-item active"><span>📊</span> Overview</div>
+        <div class="mock-sidebar-item"><span>🎫</span> Tickets</div>
+        <div class="mock-sidebar-item"><span>👥</span> Staff</div>
+        <div class="mock-sidebar-item"><span>⚙️</span> Settings</div>
+        <div class="mock-sidebar-item" style="margin-top:auto;"><span>🚪</span> Logout</div>
       </div>
-      <div class="bg-gray-800 p-4 rounded-xl shadow-lg">
-        <h3 class="text-lg font-semibold text-blue-400">dashboard is  not available right now</h3>
+      <div class="mock-main">
+        <div class="mock-section-title">Server Overview</div>
+        <div class="mock-stat-row">
+          <div class="mock-stat"><div class="mock-stat-val" style="color:var(--accent);">247</div><div class="mock-stat-lbl">Total Tickets</div></div>
+          <div class="mock-stat"><div class="mock-stat-val" style="color:var(--accent2);">12</div><div class="mock-stat-lbl">Open Today</div></div>
+          <div class="mock-stat"><div class="mock-stat-val" style="color:var(--accent3);">5</div><div class="mock-stat-lbl">Active Staff</div></div>
+        </div>
+        <div class="mock-section-title">Recent Logs</div>
+        <div class="mock-row"><div class="mock-avatar" style="background:#5563de;">R</div><span class="mock-name">Moderator_Rex closed #1042</span><span class="mock-badge mb-closed">closed</span><span class="mock-num">2m ago</span></div>
+        <div class="mock-row"><div class="mock-avatar" style="background:#3b9eff;">K</div><span class="mock-name">Support_Kay claimed #1043</span><span class="mock-badge mb-open">open</span><span class="mock-num">5m ago</span></div>
+        <div class="mock-row"><div class="mock-avatar" style="background:#5cf0c0;color:#000;">Z</div><span class="mock-name">Zara opened #1044</span><span class="mock-badge mb-open">open</span><span class="mock-num">11m ago</span></div>
       </div>
-      <p class="text-center mt-6 text-gray-400">⚠️</p>
     </div>
-  </main>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto">
-    <a href="terms.html" class="hover:text-white">Terms of Service</a> | 
-    <a href="privacy.html" class="hover:text-white">Privacy Policy</a>
-    <p>&copy; 2025 Ticket Logger by kameelo. All rights reserved.</p>
-  </footer>
+    <!-- Blur overlay -->
+    <div class="mock-blur-overlay">
+      <div class="lock-icon">🔒</div>
+      <div class="overlay-text">
+        <h3>Dashboard Not Ready Yet</h3>
+        <p>We're working hard on it. Check back soon!</p>
+      </div>
+      <span class="coming-soon-badge">⚡ COMING SOON</span>
+    </div>
 
-  <!-- Active page highlight -->
-  <script>
-    const links = document.querySelectorAll('nav a');
-    const current = window.location.pathname.split("/").pop();
-    links.forEach(link => {
-      if(link.getAttribute('href') === current){
-        link.classList.add('text-blue-400', 'font-bold', 'underline');
-      } else {
-        link.classList.add('hover:text-blue-400', 'transition');
-      }
-    });
-  </script>
+  </div>
 
+  <!-- What's coming -->
+  <section style="margin-top:5rem;">
+    <p class="section-tag reveal" style="text-align:center;">What's Coming</p>
+    <h2 class="section-title reveal d1" style="text-align:center; margin-bottom:0.75rem;">Here's what we're building</h2>
+    <p class="section-desc reveal d2" style="text-align:center; margin-inline:auto; margin-bottom:3rem;">The dashboard will give you full visibility and control over your Ticket Logger setup.</p>
+
+    <div class="cards-grid reveal d3">
+      <div class="card">
+        <div class="card-icon ci-blue">📊</div>
+        <h4>Full Analytics</h4>
+        <p>See ticket volume over time, peak hours, resolution rates, and more with beautiful charts.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon ci-teal">👤</div>
+        <h4>Staff Leaderboards</h4>
+        <p>Track which staff members are handling the most tickets and reward top performers.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon ci-purple">🖥️</div>
+        <h4>Multi-Server View</h4>
+        <p>Manage all your servers from a single interface without switching Discord accounts.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon ci-yellow">⚙️</div>
+        <h4>Visual Configuration</h4>
+        <p>Set up log channels and roles without ever typing a command — just click and save.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progress tracker -->
+  <section style="max-width:520px; margin-inline:auto; margin-top:2rem;">
+    <p class="section-tag reveal" style="text-align:center;">Development Progress</p>
+    <div class="progress-steps reveal d1" style="margin:1.5rem auto 0; max-width:100%;">
+      <div class="prog-step"><div class="prog-icon prog-done">✔</div><span class="prog-label">Backend API design</span></div>
+      <div class="prog-step"><div class="prog-icon prog-done">✔</div><span class="prog-label">Discord OAuth2 integration</span></div>
+      <div class="prog-step"><div class="prog-icon prog-wip">⚙</div><span class="prog-label">Frontend UI (in progress)</span></div>
+      <div class="prog-step"><div class="prog-icon prog-todo">○</div><span class="prog-label">Analytics charts</span></div>
+      <div class="prog-step"><div class="prog-icon prog-todo">○</div><span class="prog-label">Multi-server manager</span></div>
+      <div class="prog-step"><div class="prog-icon prog-todo">○</div><span class="prog-label">Public launch</span></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div style="margin-top:4rem;">
+    <div class="cta-banner reveal">
+      <h3>Don't wait for the dashboard</h3>
+      <p>The bot is fully functional right now with just two commands.</p>
+      <div class="btn-group">
+        <a href="https://discord.com/oauth2/authorize?client_id=1411025062680854588&permissions=8&scope=bot" target="_blank" class="btn btn-primary">⚡ Invite Bot Now</a>
+        <a href="commands.html" class="btn btn-secondary">📖 View Commands</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="commands.html">Commands</a>
+      <a href="dashboard.html">Dashboard</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a>
+    </div>
+    <p class="footer-copy">© 2025 Ticket Logger by kameelo. All rights reserved.</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){const c=document.getElementById('particles-canvas'),ctx=c.getContext('2d');let W,H,pts=[];function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}resize();window.addEventListener('resize',resize);for(let i=0;i<40;i++)pts.push({x:Math.random()*2000,y:Math.random()*1200,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:Math.random()*1.2+0.3,o:Math.random()*0.22+0.06});function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(59,158,255,${p.o})`;ctx.fill();});requestAnimationFrame(draw);}draw();})();
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.08});
+document.querySelectorAll('.reveal,.reveal-left').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
-
-
